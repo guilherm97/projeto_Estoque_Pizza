@@ -1,0 +1,52 @@
+﻿@page
+@using RazorPagesPizza.Models
+@model RazorPagesPizza.Pages.PizzaModel
+@{
+    ViewData["Title"] = "Pizza List";
+}
+<h1> 🍕 Controle de Pizzas 🍕 </h1>
+<form method="post" class="card p-3">
+    <div class="row">
+        <div asp-validation-summary="All"></div>
+    </div>
+    <div class="form-group mb-0 align-middle">
+        <label asp-for="NewPizza.Nome">Nome</label>
+        <input placeholder="ex:calabresa" type="text" asp-for="NewPizza.Nome" class="mr-5">
+        <label asp-for="NewPizza.Tamanho">Tamanho</label>
+        <select asp-for="NewPizza.Tamanho" asp-items="Html.GetEnumSelectList<TamanhoDePizzas>()" class="mr-5"></select>
+        <label asp-for="NewPizza.Preco"></label>
+        <input asp-for="NewPizza.Preco" class="mr-5" />
+        <label asp-for="NewPizza.Borda"> Borda </label>
+        <input type="checkbox" asp-for="NewPizza.Borda" class="mr-5">
+        <button class="btn btn-primary">Adicionar pizza</button>
+    </div>
+</form>
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Preço</th>
+            <th scope="col">Tamanho</th>
+            <th scope="col">Não contém gluten</th>
+            <th scope="col">Deletar</th>
+        </tr>
+    </thead> 
+    @foreach (var pizza in Model.pizzas)
+    {
+        <tr>
+            <td>@pizza.Nome</td>
+            <td>@($"{pizza.Preco:C}")</td>
+            <td>@pizza.Tamanho</td>
+            <td>@Model.ComOuSemBorda(pizza)</td>
+            <td>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@pizza.Id">
+                    <button class="btn btn-danger">Deletar</button>
+                </form>
+            </td>
+        </tr>
+    }
+
+</table>
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}
