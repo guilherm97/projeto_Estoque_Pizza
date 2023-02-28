@@ -1,9 +1,10 @@
-﻿@page
+@page
 @using RazorPagesPizza.Models
 @model RazorPagesPizza.Pages.PizzaModel
 @{
     ViewData["Title"] = "Pizza List";
 }
+
 <h1> 🍕 Controle de Pizzas 🍕 </h1>
 <form method="post" class="card p-3">
     <div class="row">
@@ -30,7 +31,7 @@
             <th scope="col">Não contém gluten</th>
             <th scope="col">Deletar</th>
         </tr>
-    </thead> 
+    </thead>
     @foreach (var pizza in Model.pizzas)
     {
         <tr>
@@ -45,8 +46,8 @@
             </td>
         </tr>
     }
-
 </table>
+
 @section Scripts {
 <partial name="_ValidationScriptsPartial" />
 }
